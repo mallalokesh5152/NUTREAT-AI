@@ -2,301 +2,228 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nutreat AI Seasonal Recommendation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>India Local Food Recommendation System</title>
 <style>
 *{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{margin:0;background:linear-gradient(135deg,#f4fff5,#e8f6ff);color:#183d24}
+body{margin:0;background:linear-gradient(135deg,#f5fff6,#e7f5ff);color:#183d24}
 header{padding:60px 8%;text-align:center;background:linear-gradient(135deg,#dff7df,#f8fff9)}
-header h1{font-size:42px;margin:0 0 15px;color:#1f5f35}
-header p{font-size:18px;max-width:850px;margin:auto;color:#50645a;line-height:1.6}
-.container{max-width:1000px;margin:auto;padding:40px 20px}
-.card{background:white;padding:28px;border-radius:24px;box-shadow:0 15px 35px rgba(0,0,0,.08)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+header h1{font-size:42px;margin-bottom:15px;color:#1f5f35}
+header p{font-size:18px;max-width:900px;margin:auto;line-height:1.7;color:#50645a}
+.btn{display:inline-block;margin-top:25px;background:#2e8b57;color:#fff;padding:14px 24px;border-radius:14px;text-decoration:none;font-weight:700}
+section{padding:50px 8%}
+h2{text-align:center;font-size:32px;color:#1f5f35}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
+.card{background:#fff;padding:24px;border-radius:22px;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.app{max-width:1000px;margin:auto;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,.12)}
+.app-head{background:linear-gradient(135deg,#2e8b57,#6cc070);color:#fff;padding:24px}
+.app-head h3{margin:0;font-size:26px}
+.form{padding:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 input,select{padding:14px;border:1px solid #d4e3d6;border-radius:14px;font-size:15px;width:100%}
-button{margin-top:15px;width:100%;padding:15px;border:none;border-radius:15px;background:#2e8b57;color:white;font-size:16px;font-weight:800;cursor:pointer}
-.chat{margin-top:25px;background:#fafffa;padding:20px;border-radius:18px;min-height:120px}
-.tag{display:inline-block;background:white;border:1px solid #cbe7cd;color:#2e7d32;padding:7px 12px;border-radius:20px;margin:5px;font-size:13px}
-.section{margin-top:15px}
-.section h3{margin-bottom:8px;color:#1f5f35}
-footer{text-align:center;padding:20px;background:#183d24;color:white;margin-top:40px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}}
+button{margin-top:16px;width:100%;padding:15px;border:0;border-radius:15px;background:#2e8b57;color:white;font-weight:800;font-size:16px;cursor:pointer}
+.result{padding:24px;background:#fbfffb;min-height:220px}
+.msg{background:#eef8ef;padding:18px;border-radius:18px;line-height:1.6}
+.tag{display:inline-block;background:white;border:1px solid #c9e8cf;color:#2e7d32;padding:8px 13px;border-radius:22px;margin:5px;font-size:14px}
+.warning{background:#fff8dc;border:1px solid #ead88c;padding:13px;border-radius:14px;margin-top:14px;color:#6b5a16}
+footer{text-align:center;background:#183d24;color:white;padding:22px;margin-top:40px}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>Nutreat AI Seasonal Recommendation System</h1>
+<h1>India Local Food & Drink Recommendation System</h1>
 <p>
-Smart AI-based food and drink recommendation system using region-wise traditional Indian nourishment data with expanded food database.
+Smart AI-style recommendation website that suggests popular local foods and drinks according to Indian states, districts, cities, villages, temperature, humidity, and season.
 </p>
+<a href="#app" class="btn">Try Website</a>
 </header>
 
-<div class="container">
-
+<section>
+<h2>Features</h2>
+<div class="cards">
 <div class="card">
+<h3>Place Based Suggestions</h3>
+<p>Supports Indian states, districts, cities, and villages using smart matching.</p>
+</div>
+<div class="card">
+<h3>Temperature Based Filtering</h3>
+<p>Hot weather shows cooling foods. Cold weather shows warming foods.</p>
+</div>
+<div class="card">
+<h3>No Duplicate Drinks</h3>
+<p>Coconut water/tender coconut water and lemon water/lemon juice are automatically cleaned.</p>
+</div>
+</div>
+</section>
 
+<section id="app">
+<h2>Get Recommendations</h2>
+<div class="app">
+<div class="app-head">
+<h3>Local Food Assistant</h3>
+<p>Enter any Indian place and get popular local food and drink suggestions.</p>
+</div>
+
+<div class="form">
 <div class="grid">
-
-<input id="region" placeholder="Enter Region / Place (e.g., Andhra, Bangalore, Vizag)">
-
+<input id="place" placeholder="Enter State / District / City / Village">
 <select id="season">
 <option value="">Select Season</option>
 <option>Summer</option>
 <option>Monsoon</option>
 <option>Winter</option>
 </select>
-
-<input id="age" type="number" placeholder="Age (in years)">
-
-<select id="lifestyle">
-<option value="">Lifestyle</option>
-<option>Low Activity</option>
-<option>Moderate Activity</option>
-<option>High Activity</option>
-</select>
-
 <input id="temperature" type="number" placeholder="Temperature °C">
-
 <input id="humidity" type="number" placeholder="Humidity %">
-
+</div>
+<button onclick="recommend()">Get Recommendation</button>
 </div>
 
-<button onclick="recommend()">Get AI Recommendation</button>
-
-<div id="chat" class="chat">
-Enter details above to get personalized recommendations based on your region, season, age, and lifestyle.
+<div id="result" class="result">
+<div class="msg">
+Welcome! Enter a place to get local food and drink recommendations.
 </div>
-
 </div>
-
 </div>
+</section>
 
 <footer>
-Nutreat AI Seasonal Recommendation System - Smart Nutrition for Every Season
+Nutreat AI Seasonal Recommendation System
 </footer>
 
 <script>
-
-// City to Region Mapping
-const cityToRegion = {
-  "vizag": "andhra",
-  "visakhapatnam": "andhra",
-  "vijayawada": "andhra",
-  "hyderabad": "telangana",
-  "kochi": "kerala",
-  "cochin": "kerala",
-  "chennai": "tamil",
-  "bangalore": "karnataka",
-  "bengaluru": "karnataka",
-  "punjab": "punjab"
+const placeData = {
+"andhra pradesh": {
+aliases:["vizag","visakhapatnam","vijayawada","guntur","tirupati","nellore","kurnool"],
+foods:["Pulihora","Pesarattu","Gongura rice","Ragi sangati","Curd rice","Tomato pappu"],
+drinks:["Ragi ambali","Majjiga","Panakam","Sugarcane juice"]
+},
+"telangana": {
+aliases:["hyderabad","warangal","karimnagar","khammam"],
+foods:["Sarva pindi","Jonna rotte","Sajja rotte","Pachi pulusu"],
+drinks:["Ambali","Majjiga","Nannari sharbat"]
+},
+"tamil nadu": {
+aliases:["chennai","coimbatore","madurai","salem"],
+foods:["Idli","Dosa","Pongal","Curd rice","Sundal"],
+drinks:["Neer mor","Panakam","Jigarthanda"]
+},
+"kerala": {
+aliases:["kochi","trivandrum","kozhikode"],
+foods:["Puttu","Appam","Kanji","Avial"],
+drinks:["Tender coconut water","Sambaram","Jeera water"]
+},
+"karnataka": {
+aliases:["bangalore","mysore","mangalore"],
+foods:["Ragi mudde","Bisi bele bath","Neer dosa","Akki rotti"],
+drinks:["Majjige","Ragi malt","Fresh lime soda"]
+},
+"maharashtra": {
+aliases:["mumbai","pune","nagpur"],
+foods:["Poha","Misal pav","Varan bhaat","Sabudana khichdi"],
+drinks:["Kokum sharbat","Sol kadhi","Aam panna"]
+},
+"gujarat": {
+aliases:["ahmedabad","surat","rajkot"],
+foods:["Dhokla","Thepla","Handvo","Fafda"],
+drinks:["Chaas","Aam panna","Jaljeera"]
+},
+"rajasthan": {
+aliases:["jaipur","jodhpur","udaipur"],
+foods:["Dal baati","Gatte ki sabzi","Bajra roti"],
+drinks:["Chaas","Kesar milk"]
+},
+"punjab": {
+aliases:["amritsar","ludhiana","patiala"],
+foods:["Makki roti","Sarson saag","Rajma rice","Chole"],
+drinks:["Lassi","Badam milk"]
+},
+"west bengal": {
+aliases:["kolkata","howrah","darjeeling"],
+foods:["Khichuri","Luchi","Panta bhat"],
+drinks:["Aam pora sharbat","Lebu jol"]
+}
 };
 
-const dataset = [
-  // ANDHRA PRADESH - SUMMER
-  {region: "andhra", season: "summer", food: "Gongura rice, Curd rice, Cucumber, Watermelon, Pesarattu, Dosa, Chutney, Buttermilk rice, Light soups", drink: "Buttermilk, Coconut water, Lemon water, Tender coconut, Sugarcane juice, Ragi ambali, Lemon juice, Mango lassi", age: "all", lifestyle: "all"},
-  
-  // ANDHRA PRADESH - MONSOON
-  {region: "andhra", season: "monsoon", food: "Millets, Pepper rasam, Warm soups, Jowar roti, Steamed vegetables, Lentil soup, Ginger-based curries, Rice porridge", drink: "Ginger tea, Buttermilk, Tulsi tea, Warm water, Lemon ginger water, Fenugreek tea, Herbal drinks", age: "all", lifestyle: "all"},
-  
-  // ANDHRA PRADESH - WINTER
-  {region: "andhra", season: "winter", food: "Sesame seeds, Dry fruits, Protein meals, Groundnut curry, Warm rice, Soups, Beans, Lentils, Nuts, Seeds", drink: "Warm milk, Herbal drinks, Ginger milk, Badam milk, Sesame milk, Turmeric milk, Hot water with spices", age: "all", lifestyle: "all"},
-  
-  // TELANGANA - SUMMER
-  {region: "telangana", season: "summer", food: "Curd rice, Light meals, Fresh fruits, Cucumber, Tomato, Brinjal, Bottle gourd, Okra, Green leafy vegetables", drink: "Buttermilk, Coconut water, Lemon water, Ragi ambali, Barley water, Fresh fruit juice, Vegetable juice", age: "all", lifestyle: "all"},
-  
-  // TELANGANA - MONSOON
-  {region: "telangana", season: "monsoon", food: "Millets, Warm meals, Soups, Pearl millet, Finger millet, Steamed foods, Ginger-based dishes, Turmeric rice", drink: "Ginger tea, Ambali, Tulsi tea, Warm water, Herbal tea, Garlic soup, Pepper water", age: "all", lifestyle: "all"},
-  
-  // TELANGANA - WINTER
-  {region: "telangana", season: "winter", food: "Dry fruits, Sesame foods, Protein foods, Peanut curry, Root vegetables, Carrots, Beets, Radish, Cabbage, Cauliflower", drink: "Warm milk, Herbal drinks, Ginger tea, Badam milk, Sesame tea, Peanut milk", age: "all", lifestyle: "all"},
-  
-  // KERALA - SUMMER
-  {region: "kerala", season: "summer", food: "Kanji, Light rice, Fresh fruits, Banana, Pineapple, Papaya, Coconut dishes, Light curries, Steamed rice cakes", drink: "Tender coconut water, Sambaram, Buttermilk, Fresh fruit juice, Coconut water, Lemon water, Sugarcane juice", age: "all", lifestyle: "all"},
-  
-  // KERALA - MONSOON
-  {region: "kerala", season: "monsoon", food: "Warm meals, Spiced rice, Soups, Tapioca, Fish curry, Turmeric rice, Ginger-based curries, Black pepper dishes", drink: "Ginger tea, Warm beverages, Tulsi tea, Black tea, Herbal drinks, Warm water with spices", age: "all", lifestyle: "all"},
-  
-  // KERALA - WINTER
-  {region: "kerala", season: "winter", food: "Dry fruits, Warm meals, Protein foods, Nuts, Seeds, Root vegetables, Beans, Lentils, Meat curry, Fish", drink: "Warm milk, Herbal drinks, Ginger milk, Badam milk, Spiced tea, Hot chocolate", age: "all", lifestyle: "all"},
-  
-  // TAMIL NADU - SUMMER
-  {region: "tamil", season: "summer", food: "Idli, Curd rice, Sundal, Light meals, Fruits, Salads, Cucumber, Tomato, Coconut rice, Vegetable rice", drink: "Neer mor, Coconut water, Buttermilk, Lemon water, Fresh fruit juice, Mango lassi, Sugarcane juice", age: "all", lifestyle: "all"},
-  
-  // TAMIL NADU - MONSOON
-  {region: "tamil", season: "monsoon", food: "Pepper rasam, Warm meals, Soups, Turmeric rice, Ginger-based curries, Lentil soup, Black pepper rice, Steamed foods", drink: "Ginger tea, Warm water, Tulsi tea, Lemon ginger water, Herbal drinks, Pepper water, Fenugreek tea", age: "all", lifestyle: "all"},
-  
-  // TAMIL NADU - WINTER
-  {region: "tamil", season: "winter", food: "Sesame foods, Protein meals, Soups, Peanut curry, Sesame balls, Dry fruits, Nuts, Root vegetables, Beans, Lentils", drink: "Warm milk, Herbal drinks, Ginger milk, Sesame milk, Badam milk, Hot water with spices", age: "all", lifestyle: "all"},
-  
-  // KARNATAKA - SUMMER
-  {region: "karnataka", season: "summer", food: "Curd rice, Cucumber, Light meals, Watermelon, Fresh fruits, Salads, Bottle gourd, Pumpkin, Steamed rice, Vegetable rice", drink: "Majjige, Coconut water, Buttermilk, Lemon water, Sugarcane juice, Ragi ambali, Fresh fruit juice", age: "all", lifestyle: "all"},
-  
-  // KARNATAKA - MONSOON
-  {region: "karnataka", season: "monsoon", food: "Millets, Warm soups, Steamed foods, Ragi, Jowar, Finger millet, Turmeric rice, Ginger-based dishes, Black pepper rice", drink: "Ginger tea, Warm beverages, Tulsi tea, Herbal tea, Warm water with spices, Lemon ginger water", age: "all", lifestyle: "all"},
-  
-  // KARNATAKA - WINTER
-  {region: "karnataka", season: "winter", food: "Ragi mudde, Dry fruits, Protein foods, Sesame seeds, Nuts, Root vegetables, Beans, Lentils, Carrots, Radish", drink: "Warm milk, Herbal drinks, Ginger milk, Ragi milk, Badam milk, Sesame milk", age: "all", lifestyle: "all"},
-  
-  // PUNJAB - SUMMER
-  {region: "punjab", season: "summer", food: "Light meals, Salads, Fresh fruits, Cucumber, Tomato, Lettuce, Beans, Green vegetables, Yogurt, Lassi", drink: "Buttermilk, Lemon water, Fresh fruit juice, Mango lassi, Vegetable juice, Water, Tender coconut", age: "all", lifestyle: "all"},
-  
-  // PUNJAB - MONSOON
-  {region: "punjab", season: "monsoon", food: "Warm meals, Soups, Steamed foods, Ginger-based curries, Turmeric rice, Black pepper dishes, Lentil soup, Root vegetables", drink: "Ginger tea, Warm water, Tulsi tea, Herbal tea, Lemon ginger water, Pepper water, Black tea", age: "all", lifestyle: "all"},
-  
-  // PUNJAB - WINTER
-  {region: "punjab", season: "winter", food: "Makki roti, Dal, Paneer, Dry fruits, Nuts, Seeds, Root vegetables, Beans, Lentils, Meat curry, Warm gravies", drink: "Lassi, Warm milk, Badam milk, Ginger milk, Sesame milk, Spiced tea, Hot chocolate, Herbal drinks", age: "all", lifestyle: "all"},
-  
-  // AGE-BASED RECOMMENDATIONS
-  {region: "", season: "", food: "Milk, Banana, Soft foods, Rice porridge, Bread, Eggs, Yogurt, Soft vegetables", drink: "Fresh fruit juice, Warm milk, Vegetable broth", age: "children", lifestyle: "all"},
-  {region: "", season: "", food: "Eggs, Protein foods, Energy foods, Chicken, Fish, Beans, Nuts, Whole grains", drink: "Milkshake, Warm milk, Fruit smoothie", age: "teen", lifestyle: "all"},
-  {region: "", season: "", food: "Balanced meals, Protein, Vegetables, Whole grains, Legumes, Fruits, Nuts", drink: "Water, Buttermilk, Herbal tea", age: "adult", lifestyle: "all"},
-  {region: "", season: "", food: "Easy digestion foods, Fiber foods, Soft vegetables, Lentils, Yogurt, Light curries", drink: "Herbal drinks, Warm milk, Light soups", age: "elderly", lifestyle: "all"},
-  
-  // LIFESTYLE-BASED RECOMMENDATIONS
-  {region: "", season: "", food: "Light meals, Easy digest foods, Fruits, Vegetables, Yogurt, Light soups", drink: "Water, Herbal drinks, Light tea", age: "all", lifestyle: "low"},
-  {region: "", season: "", food: "Balanced meals, Protein, Vegetables, Whole grains, Legumes, Moderate portions", drink: "Water, Buttermilk, Herbal tea", age: "all", lifestyle: "moderate"},
-  {region: "", season: "", food: "High protein foods, Energy foods, Nuts, Meat, Fish, Eggs, Whole grains, Legumes", drink: "Protein shakes, Milk, Energy drinks", age: "all", lifestyle: "high"}
-];
+function cleanDrink(name){
+let n=name.toLowerCase();
+if(n.includes("coconut")) return "Tender coconut water";
+if(n.includes("lemon") || n.includes("lime") || n.includes("nimbu")) return "Nimbu pani";
+if(n.includes("buttermilk") || n.includes("majjiga") || n.includes("chaas") || n.includes("neer mor") || n.includes("sambaram")) return "Majjiga / Chaas";
+if(n.includes("lassi")) return "Lassi";
+return name;
+}
 
 function unique(arr){
-  // Trim all items and remove empty ones, then deduplicate
-  let trimmed = arr.map(x => x ? x.trim() : "").filter(x => x);
-  return [...new Set(trimmed)];
+return [...new Set(arr)];
 }
 
-function getAgeGroup(age){
-  if(age <= 12) return "children";
-  if(age >= 13 && age <= 19) return "teen";
-  if(age >= 20 && age <= 40) return "adult";
-  return "elderly";
+function findPlace(place){
+place=place.toLowerCase();
+for(let state in placeData){
+if(place.includes(state)) return state;
+for(let alias of placeData[state].aliases){
+if(place.includes(alias)) return state;
 }
-
-function getLifestyleKey(lifestyle){
-  if(lifestyle.includes("low")) return "low";
-  if(lifestyle.includes("high")) return "high";
-  return "moderate";
 }
-
-function normalizeRegion(userInput){
-  const lower = userInput.toLowerCase().trim();
-  
-  // Check if it's a city that maps to a region
-  if(cityToRegion[lower]){
-    return cityToRegion[lower];
-  }
-  
-  // Check if it's already a region
-  if(lower === "andhra" || lower === "telangana" || lower === "kerala" || lower === "tamil" || lower === "karnataka" || lower === "punjab"){
-    return lower;
-  }
-  
-  // Try partial matching for regions
-  if(lower.includes("andhra")) return "andhra";
-  if(lower.includes("telangana")) return "telangana";
-  if(lower.includes("kerala")) return "kerala";
-  if(lower.includes("tamil")) return "tamil";
-  if(lower.includes("karnataka")) return "karnataka";
-  if(lower.includes("punjab")) return "punjab";
-  
-  return lower;
+return null;
 }
 
 function recommend(){
+let place=document.getElementById("place").value.toLowerCase().trim();
+let season=document.getElementById("season").value.toLowerCase();
+let temp=Number(document.getElementById("temperature").value);
+let humidity=Number(document.getElementById("humidity").value);
 
-let userRegion = document.getElementById("region").value || "";
-let season = document.getElementById("season").value.toLowerCase() || "";
-let age = Number(document.getElementById("age").value) || 0;
-let lifestyle = document.getElementById("lifestyle").value.toLowerCase() || "";
-let temp = Number(document.getElementById("temperature").value) || 0;
-let humidity = Number(document.getElementById("humidity").value) || 0;
-
-if(!userRegion || !season || !age || !lifestyle || !temp || !humidity){
-  document.getElementById("chat").innerHTML = `
-    <h3>⚠️ Missing Information</h3>
-    <p>Please fill all fields to get personalized recommendations.</p>
-  `;
-  return;
+if(!place){
+document.getElementById("result").innerHTML=`<div class="msg">Please enter a place name.</div>`;
+return;
 }
 
-let region = normalizeRegion(userRegion);
-let ageGroup = getAgeGroup(age);
-let lifestyleKey = getLifestyleKey(lifestyle);
+let matched=findPlace(place);
+let foods=[];
+let drinks=[];
 
-let matched = dataset.filter(item => {
-  let regionMatch = !item.region || item.region === region;
-  let seasonMatch = !item.season || season.includes(item.season);
-  let ageMatch = !item.age || item.age === "all" || item.age === ageGroup;
-  let lifestyleMatch = !item.lifestyle || item.lifestyle === "all" || item.lifestyle === lifestyleKey;
-  
-  return regionMatch && seasonMatch && ageMatch && lifestyleMatch;
-});
-
-if(matched.length === 0){
-  document.getElementById("chat").innerHTML = `
-    <h3>❌ No Match Found</h3>
-    <p>Supported regions: Andhra, Telangana, Kerala, Tamil Nadu, Karnataka, Punjab</p>
-    <p>Try: Andhra, Bangalore, Vizag, Hyderabad, Chennai, Kerala, etc.</p>
-  `;
-  return;
+if(matched){
+foods=[...placeData[matched].foods];
+drinks=[...placeData[matched].drinks];
 }
 
-// Collect all foods and drinks from matched items
-let allFoods = [];
-let allDrinks = [];
-
-matched.forEach(item => {
-  if(item.food) allFoods = allFoods.concat(item.food.split(","));
-  if(item.drink) allDrinks = allDrinks.concat(item.drink.split(","));
-});
-
-// Remove duplicates with proper trimming
-let foods = unique(allFoods);
-let drinks = unique(allDrinks);
-
-let weatherNote = "";
-if(temp >= 32 || season === "summer"){
-  weatherNote = "🌡️ Hot weather - Prefer cooling and hydrating foods to beat the heat.";
-}
-if(temp <= 22 || season === "winter"){
-  weatherNote = "❄️ Cold weather - Prefer warm and energy-rich foods for warmth and vitality.";
-}
-if(humidity >= 70 || season === "monsoon"){
-  weatherNote = "💧 High humidity - Focus on digestion-support and immunity-boosting foods.";
+if(temp>=34){
+foods=foods.filter(x=>!["Dal baati","Bajra roti","Makki roti"].includes(x));
+drinks.push("Tender coconut water","Nimbu pani","Majjiga / Chaas","Aam panna");
+foods.push("Curd rice","Pakhala bhata");
 }
 
-let reply = `
-<h2>✨ Smart AI Recommendation</h2>
+if(temp<=20){
+foods.push("Warm soups","Rajma rice","Dal baati","Bajra roti");
+drinks.push("Kahwa","Warm milk","Herbal tea");
+}
 
-<div class="section">
-<h3>📍 Your Profile</h3>
-<p><strong>Region:</strong> ${userRegion} | <strong>Season:</strong> ${season} | <strong>Age:</strong> ${age} years | <strong>Lifestyle:</strong> ${lifestyle}</p>
-<p><strong>Weather Conditions:</strong> ${temp}°C, ${humidity}% Humidity</p>
-${weatherNote ? `<p><strong>${weatherNote}</strong></p>` : ""}
+if(humidity>=70){
+foods=foods.filter(x=>!["Makki roti","Bajra roti"].includes(x));
+drinks.push("Majjiga / Chaas","Nimbu pani");
+}
+
+foods=unique(foods).slice(0,8);
+drinks=unique(drinks.map(cleanDrink)).slice(0,6);
+
+let result=`
+<div class="msg">
+<h2 style="margin-top:0">Recommendations for ${place}</h2>
+<h3>Popular Local Foods</h3>
+${foods.map(x=>`<span class="tag">${x}</span>`).join("")}
+<br><br>
+<h3>Popular Local Drinks</h3>
+${drinks.map(x=>`<span class="tag">${x}</span>`).join("")}
+<div class="warning">
+Recommendations are filtered according to place popularity, temperature, humidity, and season.
 </div>
+</div>`;
 
-<div class="section">
-<h3>🍽️ Recommended Foods</h3>
-${foods.map(x => `<span class="tag">${x}</span>`).join("")}
-</div>
-
-<div class="section">
-<h3>🥤 Recommended Drinks & Juices</h3>
-${drinks.map(x => `<span class="tag">${x}</span>`).join("")}
-</div>
-
-<div class="section">
-<h3>💬 Nutrition Summary</h3>
-<p>These recommendations are based on traditional Indian seasonal nutrition practices suited for your region, weather conditions, age group, and lifestyle. Include these foods and drinks in your daily diet for better health, digestion, immunity, and seasonal wellness.</p>
-</div>
-`;
-
-document.getElementById("chat").innerHTML = reply;
-
+document.getElementById("result").innerHTML=result;
 }
-
 </script>
 
 </body>
