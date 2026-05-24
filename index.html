@@ -162,7 +162,9 @@ const dataset = [
 ];
 
 function unique(arr){
-  return [...new Set(arr.filter(x => x && x.trim()))];
+  // Trim all items and remove empty ones, then deduplicate
+  let trimmed = arr.map(x => x ? x.trim() : "").filter(x => x);
+  return [...new Set(trimmed)];
 }
 
 function getAgeGroup(age){
@@ -241,8 +243,18 @@ if(matched.length === 0){
   return;
 }
 
-let foods = unique(matched.flatMap(x => x.food.split(",")));
-let drinks = unique(matched.flatMap(x => x.drink.split(",")));
+// Collect all foods and drinks from matched items
+let allFoods = [];
+let allDrinks = [];
+
+matched.forEach(item => {
+  if(item.food) allFoods = allFoods.concat(item.food.split(","));
+  if(item.drink) allDrinks = allDrinks.concat(item.drink.split(","));
+});
+
+// Remove duplicates with proper trimming
+let foods = unique(allFoods);
+let drinks = unique(allDrinks);
 
 let weatherNote = "";
 if(temp >= 32 || season === "summer"){
@@ -267,12 +279,12 @@ ${weatherNote ? `<p><strong>${weatherNote}</strong></p>` : ""}
 
 <div class="section">
 <h3>🍽️ Recommended Foods</h3>
-${foods.map(x => `<span class="tag">${x.trim()}</span>`).join("")}
+${foods.map(x => `<span class="tag">${x}</span>`).join("")}
 </div>
 
 <div class="section">
 <h3>🥤 Recommended Drinks & Juices</h3>
-${drinks.map(x => `<span class="tag">${x.trim()}</span>`).join("")}
+${drinks.map(x => `<span class="tag">${x}</span>`).join("")}
 </div>
 
 <div class="section">
