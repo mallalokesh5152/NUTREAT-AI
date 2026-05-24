@@ -40,7 +40,7 @@ Smart AI-based food and drink recommendation system using region-wise traditiona
 
 <div class="grid">
 
-<input id="region" placeholder="Enter Region / Place (e.g., Andhra, Bangalore)">
+<input id="region" placeholder="Enter Region / Place (e.g., Andhra, Bangalore, Vizag)">
 
 <select id="season">
 <option value="">Select Season</option>
@@ -79,6 +79,20 @@ Nutreat AI Seasonal Recommendation System - Smart Nutrition for Every Season
 </footer>
 
 <script>
+
+// City to Region Mapping
+const cityToRegion = {
+  "vizag": "andhra",
+  "visakhapatnam": "andhra",
+  "vijayawada": "andhra",
+  "hyderabad": "telangana",
+  "kochi": "kerala",
+  "cochin": "kerala",
+  "chennai": "tamil",
+  "bangalore": "karnataka",
+  "bengaluru": "karnataka",
+  "punjab": "punjab"
+};
 
 const dataset = [
   // ANDHRA PRADESH - SUMMER
@@ -164,16 +178,40 @@ function getLifestyleKey(lifestyle){
   return "moderate";
 }
 
+function normalizeRegion(userInput){
+  const lower = userInput.toLowerCase().trim();
+  
+  // Check if it's a city that maps to a region
+  if(cityToRegion[lower]){
+    return cityToRegion[lower];
+  }
+  
+  // Check if it's already a region
+  if(lower === "andhra" || lower === "telangana" || lower === "kerala" || lower === "tamil" || lower === "karnataka" || lower === "punjab"){
+    return lower;
+  }
+  
+  // Try partial matching for regions
+  if(lower.includes("andhra")) return "andhra";
+  if(lower.includes("telangana")) return "telangana";
+  if(lower.includes("kerala")) return "kerala";
+  if(lower.includes("tamil")) return "tamil";
+  if(lower.includes("karnataka")) return "karnataka";
+  if(lower.includes("punjab")) return "punjab";
+  
+  return lower;
+}
+
 function recommend(){
 
-let region=document.getElementById("region").value.toLowerCase() || "";
-let season=document.getElementById("season").value.toLowerCase() || "";
-let age=Number(document.getElementById("age").value) || 0;
-let lifestyle=document.getElementById("lifestyle").value.toLowerCase() || "";
-let temp=Number(document.getElementById("temperature").value) || 0;
-let humidity=Number(document.getElementById("humidity").value) || 0;
+let userRegion = document.getElementById("region").value || "";
+let season = document.getElementById("season").value.toLowerCase() || "";
+let age = Number(document.getElementById("age").value) || 0;
+let lifestyle = document.getElementById("lifestyle").value.toLowerCase() || "";
+let temp = Number(document.getElementById("temperature").value) || 0;
+let humidity = Number(document.getElementById("humidity").value) || 0;
 
-if(!region || !season || !age || !lifestyle || !temp || !humidity){
+if(!userRegion || !season || !age || !lifestyle || !temp || !humidity){
   document.getElementById("chat").innerHTML = `
     <h3>⚠️ Missing Information</h3>
     <p>Please fill all fields to get personalized recommendations.</p>
@@ -181,11 +219,12 @@ if(!region || !season || !age || !lifestyle || !temp || !humidity){
   return;
 }
 
+let region = normalizeRegion(userRegion);
 let ageGroup = getAgeGroup(age);
 let lifestyleKey = getLifestyleKey(lifestyle);
 
 let matched = dataset.filter(item => {
-  let regionMatch = !item.region || region.includes(item.region) || item.region.includes(region);
+  let regionMatch = !item.region || item.region === region;
   let seasonMatch = !item.season || season.includes(item.season);
   let ageMatch = !item.age || item.age === "all" || item.age === ageGroup;
   let lifestyleMatch = !item.lifestyle || item.lifestyle === "all" || item.lifestyle === lifestyleKey;
@@ -196,7 +235,8 @@ let matched = dataset.filter(item => {
 if(matched.length === 0){
   document.getElementById("chat").innerHTML = `
     <h3>❌ No Match Found</h3>
-    <p>Try different region, season, or age group.</p>
+    <p>Supported regions: Andhra, Telangana, Kerala, Tamil Nadu, Karnataka, Punjab</p>
+    <p>Try: Andhra, Bangalore, Vizag, Hyderabad, Chennai, Kerala, etc.</p>
   `;
   return;
 }
@@ -220,7 +260,7 @@ let reply = `
 
 <div class="section">
 <h3>📍 Your Profile</h3>
-<p><strong>Region:</strong> ${region} | <strong>Season:</strong> ${season} | <strong>Age:</strong> ${age} years | <strong>Lifestyle:</strong> ${lifestyle}</p>
+<p><strong>Region:</strong> ${userRegion} | <strong>Season:</strong> ${season} | <strong>Age:</strong> ${age} years | <strong>Lifestyle:</strong> ${lifestyle}</p>
 <p><strong>Weather Conditions:</strong> ${temp}°C, ${humidity}% Humidity</p>
 ${weatherNote ? `<p><strong>${weatherNote}</strong></p>` : ""}
 </div>
