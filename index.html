@@ -30,7 +30,7 @@ footer{text-align:center;padding:20px;background:#183d24;color:white;margin-top:
 <header>
 <h1>Nutreat AI Seasonal Recommendation System</h1>
 <p>
-Smart AI-based food and drink recommendation system using region-wise traditional Indian nourishment data with weather insights.
+Smart AI-based food and drink recommendation system using region-wise traditional Indian nourishment data with expanded food database.
 </p>
 </header>
 
@@ -82,76 +82,69 @@ Nutreat AI Seasonal Recommendation System - Smart Nutrition for Every Season
 
 const dataset = [
   // ANDHRA PRADESH - SUMMER
-  {region: "andhra", season: "summer", food: "Gongura rice, Curd rice, Cucumber", drink: "Buttermilk, Coconut water, Lemon water", age: "all", lifestyle: "all"},
-  {region: "vizag", season: "summer", food: "Pesarattu, Watermelon", drink: "Sugarcane juice, Tender coconut", age: "all", lifestyle: "all"},
+  {region: "andhra", season: "summer", food: "Gongura rice, Curd rice, Cucumber, Watermelon, Pesarattu, Dosa, Chutney, Buttermilk rice, Light soups", drink: "Buttermilk, Coconut water, Lemon water, Tender coconut, Sugarcane juice, Ragi ambali, Lemon juice, Mango lassi", age: "all", lifestyle: "all"},
   
   // ANDHRA PRADESH - MONSOON
-  {region: "andhra", season: "monsoon", food: "Millets, Pepper rasam, Warm soups", drink: "Ginger tea, Buttermilk", age: "all", lifestyle: "all"},
-  {region: "vijayawada", season: "monsoon", food: "Jowar roti, Steamed foods", drink: "Tulsi tea, Warm water", age: "all", lifestyle: "all"},
+  {region: "andhra", season: "monsoon", food: "Millets, Pepper rasam, Warm soups, Jowar roti, Steamed vegetables, Lentil soup, Ginger-based curries, Rice porridge", drink: "Ginger tea, Buttermilk, Tulsi tea, Warm water, Lemon ginger water, Fenugreek tea, Herbal drinks", age: "all", lifestyle: "all"},
   
   // ANDHRA PRADESH - WINTER
-  {region: "andhra", season: "winter", food: "Sesame seeds, Dry fruits, Protein meals", drink: "Warm milk, Herbal drinks", age: "all", lifestyle: "all"},
+  {region: "andhra", season: "winter", food: "Sesame seeds, Dry fruits, Protein meals, Groundnut curry, Warm rice, Soups, Beans, Lentils, Nuts, Seeds", drink: "Warm milk, Herbal drinks, Ginger milk, Badam milk, Sesame milk, Turmeric milk, Hot water with spices", age: "all", lifestyle: "all"},
   
   // TELANGANA - SUMMER
-  {region: "telangana", season: "summer", food: "Curd rice, Light meals, Fruits", drink: "Buttermilk, Coconut water, Lemon water", age: "all", lifestyle: "all"},
-  {region: "hyderabad", season: "summer", food: "Cucumber, Watermelon, Salads", drink: "Ragi ambali, Coconut water", age: "all", lifestyle: "all"},
+  {region: "telangana", season: "summer", food: "Curd rice, Light meals, Fresh fruits, Cucumber, Tomato, Brinjal, Bottle gourd, Okra, Green leafy vegetables", drink: "Buttermilk, Coconut water, Lemon water, Ragi ambali, Barley water, Fresh fruit juice, Vegetable juice", age: "all", lifestyle: "all"},
   
   // TELANGANA - MONSOON
-  {region: "telangana", season: "monsoon", food: "Millets, Warm meals, Soups", drink: "Ginger tea, Ambali", age: "all", lifestyle: "all"},
-  {region: "hyderabad", season: "monsoon", food: "Jowar roti, Steamed foods", drink: "Tulsi tea, Warm water", age: "all", lifestyle: "all"},
+  {region: "telangana", season: "monsoon", food: "Millets, Warm meals, Soups, Pearl millet, Finger millet, Steamed foods, Ginger-based dishes, Turmeric rice", drink: "Ginger tea, Ambali, Tulsi tea, Warm water, Herbal tea, Garlic soup, Pepper water", age: "all", lifestyle: "all"},
   
   // TELANGANA - WINTER
-  {region: "telangana", season: "winter", food: "Dry fruits, Sesame foods, Protein", drink: "Warm milk, Herbal drinks", age: "all", lifestyle: "all"},
+  {region: "telangana", season: "winter", food: "Dry fruits, Sesame foods, Protein foods, Peanut curry, Root vegetables, Carrots, Beets, Radish, Cabbage, Cauliflower", drink: "Warm milk, Herbal drinks, Ginger tea, Badam milk, Sesame tea, Peanut milk", age: "all", lifestyle: "all"},
   
   // KERALA - SUMMER
-  {region: "kerala", season: "summer", food: "Kanji, Light rice, Fruits", drink: "Tender coconut water, Sambaram", age: "all", lifestyle: "all"},
-  {region: "kochi", season: "summer", food: "Appam, Banana, Coconut dishes", drink: "Coconut water, Lemon water", age: "all", lifestyle: "all"},
+  {region: "kerala", season: "summer", food: "Kanji, Light rice, Fresh fruits, Banana, Pineapple, Papaya, Coconut dishes, Light curries, Steamed rice cakes", drink: "Tender coconut water, Sambaram, Buttermilk, Fresh fruit juice, Coconut water, Lemon water, Sugarcane juice", age: "all", lifestyle: "all"},
   
   // KERALA - MONSOON
-  {region: "kerala", season: "monsoon", food: "Warm meals, Spiced rice, Soups", drink: "Ginger tea, Warm beverages", age: "all", lifestyle: "all"},
+  {region: "kerala", season: "monsoon", food: "Warm meals, Spiced rice, Soups, Tapioca, Fish curry, Turmeric rice, Ginger-based curries, Black pepper dishes", drink: "Ginger tea, Warm beverages, Tulsi tea, Black tea, Herbal drinks, Warm water with spices", age: "all", lifestyle: "all"},
   
   // KERALA - WINTER
-  {region: "kerala", season: "winter", food: "Dry fruits, Warm meals, Protein", drink: "Warm milk, Herbal drinks", age: "all", lifestyle: "all"},
+  {region: "kerala", season: "winter", food: "Dry fruits, Warm meals, Protein foods, Nuts, Seeds, Root vegetables, Beans, Lentils, Meat curry, Fish", drink: "Warm milk, Herbal drinks, Ginger milk, Badam milk, Spiced tea, Hot chocolate", age: "all", lifestyle: "all"},
   
   // TAMIL NADU - SUMMER
-  {region: "tamil", season: "summer", food: "Idli, Curd rice, Sundal", drink: "Neer mor, Coconut water", age: "all", lifestyle: "all"},
-  {region: "chennai", season: "summer", food: "Light meals, Fruits, Salads", drink: "Buttermilk, Lemon water", age: "all", lifestyle: "all"},
+  {region: "tamil", season: "summer", food: "Idli, Curd rice, Sundal, Light meals, Fruits, Salads, Cucumber, Tomato, Coconut rice, Vegetable rice", drink: "Neer mor, Coconut water, Buttermilk, Lemon water, Fresh fruit juice, Mango lassi, Sugarcane juice", age: "all", lifestyle: "all"},
   
   // TAMIL NADU - MONSOON
-  {region: "tamil", season: "monsoon", food: "Pepper rasam, Warm meals, Soups", drink: "Ginger tea, Warm water", age: "all", lifestyle: "all"},
+  {region: "tamil", season: "monsoon", food: "Pepper rasam, Warm meals, Soups, Turmeric rice, Ginger-based curries, Lentil soup, Black pepper rice, Steamed foods", drink: "Ginger tea, Warm water, Tulsi tea, Lemon ginger water, Herbal drinks, Pepper water, Fenugreek tea", age: "all", lifestyle: "all"},
   
   // TAMIL NADU - WINTER
-  {region: "tamil", season: "winter", food: "Sesame foods, Protein meals, Soups", drink: "Warm milk, Herbal drinks", age: "all", lifestyle: "all"},
+  {region: "tamil", season: "winter", food: "Sesame foods, Protein meals, Soups, Peanut curry, Sesame balls, Dry fruits, Nuts, Root vegetables, Beans, Lentils", drink: "Warm milk, Herbal drinks, Ginger milk, Sesame milk, Badam milk, Hot water with spices", age: "all", lifestyle: "all"},
   
   // KARNATAKA - SUMMER
-  {region: "karnataka", season: "summer", food: "Curd rice, Cucumber, Light meals", drink: "Majjige, Coconut water", age: "all", lifestyle: "all"},
-  {region: "bangalore", season: "summer", food: "Watermelon, Fruits, Salads", drink: "Buttermilk, Lemon water", age: "all", lifestyle: "all"},
+  {region: "karnataka", season: "summer", food: "Curd rice, Cucumber, Light meals, Watermelon, Fresh fruits, Salads, Bottle gourd, Pumpkin, Steamed rice, Vegetable rice", drink: "Majjige, Coconut water, Buttermilk, Lemon water, Sugarcane juice, Ragi ambali, Fresh fruit juice", age: "all", lifestyle: "all"},
   
   // KARNATAKA - MONSOON
-  {region: "karnataka", season: "monsoon", food: "Millets, Warm soups, Steamed foods", drink: "Ginger tea, Warm beverages", age: "all", lifestyle: "all"},
+  {region: "karnataka", season: "monsoon", food: "Millets, Warm soups, Steamed foods, Ragi, Jowar, Finger millet, Turmeric rice, Ginger-based dishes, Black pepper rice", drink: "Ginger tea, Warm beverages, Tulsi tea, Herbal tea, Warm water with spices, Lemon ginger water", age: "all", lifestyle: "all"},
   
   // KARNATAKA - WINTER
-  {region: "karnataka", season: "winter", food: "Ragi mudde, Dry fruits, Protein", drink: "Warm milk, Herbal drinks", age: "all", lifestyle: "all"},
+  {region: "karnataka", season: "winter", food: "Ragi mudde, Dry fruits, Protein foods, Sesame seeds, Nuts, Root vegetables, Beans, Lentils, Carrots, Radish", drink: "Warm milk, Herbal drinks, Ginger milk, Ragi milk, Badam milk, Sesame milk", age: "all", lifestyle: "all"},
   
   // PUNJAB - SUMMER
-  {region: "punjab", season: "summer", food: "Light meals, Salads, Fruits", drink: "Buttermilk, Lemon water", age: "all", lifestyle: "all"},
+  {region: "punjab", season: "summer", food: "Light meals, Salads, Fresh fruits, Cucumber, Tomato, Lettuce, Beans, Green vegetables, Yogurt, Lassi", drink: "Buttermilk, Lemon water, Fresh fruit juice, Mango lassi, Vegetable juice, Water, Tender coconut", age: "all", lifestyle: "all"},
   
   // PUNJAB - MONSOON
-  {region: "punjab", season: "monsoon", food: "Warm meals, Soups, Steamed foods", drink: "Ginger tea, Warm beverages", age: "all", lifestyle: "all"},
+  {region: "punjab", season: "monsoon", food: "Warm meals, Soups, Steamed foods, Ginger-based curries, Turmeric rice, Black pepper dishes, Lentil soup, Root vegetables", drink: "Ginger tea, Warm water, Tulsi tea, Herbal tea, Lemon ginger water, Pepper water, Black tea", age: "all", lifestyle: "all"},
   
   // PUNJAB - WINTER
-  {region: "punjab", season: "winter", food: "Makki roti, Dal, Paneer, Dry fruits", drink: "Lassi, Warm milk", age: "all", lifestyle: "all"},
+  {region: "punjab", season: "winter", food: "Makki roti, Dal, Paneer, Dry fruits, Nuts, Seeds, Root vegetables, Beans, Lentils, Meat curry, Warm gravies", drink: "Lassi, Warm milk, Badam milk, Ginger milk, Sesame milk, Spiced tea, Hot chocolate, Herbal drinks", age: "all", lifestyle: "all"},
   
   // AGE-BASED RECOMMENDATIONS
-  {region: "", season: "", food: "Milk, Banana, Soft foods", drink: "Fresh fruit juice, Warm milk", age: "children", lifestyle: "all"},
-  {region: "", season: "", food: "Eggs, Protein foods, Energy foods", drink: "Milkshake, Warm milk", age: "teen", lifestyle: "all"},
-  {region: "", season: "", food: "Balanced meals, Protein, Vegetables", drink: "Water, Buttermilk", age: "adult", lifestyle: "all"},
-  {region: "", season: "", food: "Easy digestion foods, Fiber foods", drink: "Herbal drinks, Warm milk", age: "elderly", lifestyle: "all"},
+  {region: "", season: "", food: "Milk, Banana, Soft foods, Rice porridge, Bread, Eggs, Yogurt, Soft vegetables", drink: "Fresh fruit juice, Warm milk, Vegetable broth", age: "children", lifestyle: "all"},
+  {region: "", season: "", food: "Eggs, Protein foods, Energy foods, Chicken, Fish, Beans, Nuts, Whole grains", drink: "Milkshake, Warm milk, Fruit smoothie", age: "teen", lifestyle: "all"},
+  {region: "", season: "", food: "Balanced meals, Protein, Vegetables, Whole grains, Legumes, Fruits, Nuts", drink: "Water, Buttermilk, Herbal tea", age: "adult", lifestyle: "all"},
+  {region: "", season: "", food: "Easy digestion foods, Fiber foods, Soft vegetables, Lentils, Yogurt, Light curries", drink: "Herbal drinks, Warm milk, Light soups", age: "elderly", lifestyle: "all"},
   
   // LIFESTYLE-BASED RECOMMENDATIONS
-  {region: "", season: "", food: "Light meals, Easy digest", drink: "Water, Herbal drinks", age: "all", lifestyle: "low"},
-  {region: "", season: "", food: "Balanced meals, Protein", drink: "Water, Buttermilk", age: "all", lifestyle: "moderate"},
-  {region: "", season: "", food: "High protein, Energy foods", drink: "Protein shakes, Water", age: "all", lifestyle: "high"}
+  {region: "", season: "", food: "Light meals, Easy digest foods, Fruits, Vegetables, Yogurt, Light soups", drink: "Water, Herbal drinks, Light tea", age: "all", lifestyle: "low"},
+  {region: "", season: "", food: "Balanced meals, Protein, Vegetables, Whole grains, Legumes, Moderate portions", drink: "Water, Buttermilk, Herbal tea", age: "all", lifestyle: "moderate"},
+  {region: "", season: "", food: "High protein foods, Energy foods, Nuts, Meat, Fish, Eggs, Whole grains, Legumes", drink: "Protein shakes, Milk, Energy drinks", age: "all", lifestyle: "high"}
 ];
 
 function unique(arr){
@@ -213,13 +206,13 @@ let drinks = unique(matched.flatMap(x => x.drink.split(",")));
 
 let weatherNote = "";
 if(temp >= 32 || season === "summer"){
-  weatherNote = "Hot weather - Prefer cooling and hydrating foods.";
+  weatherNote = "🌡️ Hot weather - Prefer cooling and hydrating foods to beat the heat.";
 }
 if(temp <= 22 || season === "winter"){
-  weatherNote = "Cold weather - Prefer warm and energy-rich foods.";
+  weatherNote = "❄️ Cold weather - Prefer warm and energy-rich foods for warmth and vitality.";
 }
 if(humidity >= 70 || season === "monsoon"){
-  weatherNote = "High humidity - Support digestion and immunity.";
+  weatherNote = "💧 High humidity - Focus on digestion-support and immunity-boosting foods.";
 }
 
 let reply = `
@@ -227,9 +220,9 @@ let reply = `
 
 <div class="section">
 <h3>📍 Your Profile</h3>
-<p><strong>Region:</strong> ${region} | <strong>Season:</strong> ${season} | <strong>Age:</strong> ${age} | <strong>Lifestyle:</strong> ${lifestyle}</p>
-<p><strong>Weather:</strong> ${temp}°C, ${humidity}% Humidity</p>
-${weatherNote ? `<p><strong>💡 Insight:</strong> ${weatherNote}</p>` : ""}
+<p><strong>Region:</strong> ${region} | <strong>Season:</strong> ${season} | <strong>Age:</strong> ${age} years | <strong>Lifestyle:</strong> ${lifestyle}</p>
+<p><strong>Weather Conditions:</strong> ${temp}°C, ${humidity}% Humidity</p>
+${weatherNote ? `<p><strong>${weatherNote}</strong></p>` : ""}
 </div>
 
 <div class="section">
@@ -244,7 +237,7 @@ ${drinks.map(x => `<span class="tag">${x.trim()}</span>`).join("")}
 
 <div class="section">
 <h3>💬 Nutrition Summary</h3>
-<p>These recommendations are based on traditional Indian seasonal nutrition practices suited for your region, weather, age group, and lifestyle. Include these foods and drinks in your daily diet for better health, digestion, immunity, and seasonal wellness.</p>
+<p>These recommendations are based on traditional Indian seasonal nutrition practices suited for your region, weather conditions, age group, and lifestyle. Include these foods and drinks in your daily diet for better health, digestion, immunity, and seasonal wellness.</p>
 </div>
 `;
 
