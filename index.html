@@ -58,8 +58,8 @@
       <p>Includes Indian seasonal foods, drinks, and nourishment practices.</p>
     </div>
     <div class="card">
-      <h3>Future AI Scope</h3>
-      <p>Can be connected with weather API, database, and AI model later.</p>
+      <h3>Region Specific</h3>
+      <p>Local cuisine recommendations based on region and climate.</p>
     </div>
   </div>
 </section>
@@ -82,18 +82,18 @@
       <p>Enter details and get food recommendations</p>
     </div>
     <div class="chatbox" id="chatBox">
-      <div class="msg bot">Hi! I am your AI Seasonal Food Assistant. Enter your details below.</div>
+      <div class="msg bot">Hi! I am your AI Seasonal Food Assistant. Enter your details below to get personalized recommendations!</div>
     </div>
     <div class="form">
       <div class="grid">
-        <input id="location" placeholder="Location / Region">
+        <input id="location" placeholder="Location / Region (e.g., Andhra, Bangalore)">
         <select id="season">
           <option value="">Select Season</option>
           <option>Summer</option>
           <option>Monsoon</option>
           <option>Winter</option>
         </select>
-        <input id="age" placeholder="Age / Age Group">
+        <input id="age" type="number" placeholder="Age (in years)">
         <select id="lifestyle">
           <option value="">Lifestyle</option>
           <option>Low Activity</option>
@@ -123,58 +123,143 @@ function addMsg(text,type){
 }
 
 function recommend(){
-  let location=document.getElementById("location").value || "your region";
+  let location=document.getElementById("location").value.toLowerCase() || "your region";
   let season=document.getElementById("season").value;
-  let age=document.getElementById("age").value || "general age group";
-  let lifestyle=document.getElementById("lifestyle").value || "normal lifestyle";
+  let age=Number(document.getElementById("age").value);
+  let lifestyle=document.getElementById("lifestyle").value || "Moderate Activity";
   let temp=Number(document.getElementById("temperature").value);
   let hum=Number(document.getElementById("humidity").value);
 
-  if(!season || !temp || !hum){
-    addMsg("Please enter season, temperature, and humidity.","bot");
+  if(!season || !temp || !hum || !age){
+    addMsg("Please enter all details.","bot");
     return;
   }
 
-  addMsg("Location: "+location+"<br>Season: "+season+"<br>Age: "+age+"<br>Lifestyle: "+lifestyle+"<br>Temperature: "+temp+"°C<br>Humidity: "+hum+"%","user");
+  addMsg(
+    "Location: "+location+
+    "<br>Season: "+season+
+    "<br>Age: "+age+
+    "<br>Lifestyle: "+lifestyle+
+    "<br>Temperature: "+temp+"°C"+
+    "<br>Humidity: "+hum+"%",
+    "user"
+  );
 
-  let foods=[], drinks=[], tips=[], reason="";
+  let foods = [];
+  let drinks = [];
+  let tips = [];
 
-  if(season==="Summer" || temp>=32){
-    foods=["Cucumber","Curd rice","Water-rich fruits","Light homemade meals"];
-    drinks=["Buttermilk","Ragi ambali","Coconut water","Lemon water"];
-    tips=["Avoid oily foods","Drink enough water","Prefer cooling foods"];
-    reason="Hot weather needs cooling and hydration-support foods.";
-  } else if(season==="Monsoon" || hum>=70){
-    foods=["Pepper rasam","Millets","Steamed foods","Warm homemade meals"];
-    drinks=["Ginger tea","Tulsi tea","Warm water"];
-    tips=["Avoid cold outside foods","Support digestion","Choose warm foods"];
-    reason="High humidity needs digestion-support and immunity-support foods.";
-  } else if(season==="Winter" || temp<=22){
-    foods=["Sesame foods","Dry fruits","Soups","Protein-rich meals"];
-    drinks=["Herbal drinks","Warm milk","Ginger drinks"];
-    tips=["Eat warm meals","Maintain energy","Include immunity-support foods"];
-    reason="Cold weather needs warm and energy-support foods.";
-  } else {
-    foods=["Seasonal fruits","Vegetables","Millets","Balanced homemade meals"];
-    drinks=["Water","Buttermilk","Herbal drinks"];
-    tips=["Eat according to season","Maintain hydration","Avoid junk foods"];
-    reason="Moderate weather needs balanced seasonal foods.";
+  // ANDHRA PRADESH
+  if(location.includes("andhra") || location.includes("vizag") || location.includes("vijayawada")){
+    foods.push("Gongura rice", "Curd rice", "Pesarattu", "Pulihora");
+    drinks.push("Ragi ambali", "Buttermilk", "Sugarcane juice", "Coconut water");
   }
 
+  // TELANGANA
+  if(location.includes("telangana") || location.includes("hyderabad")){
+    foods.push("Sarva pindi", "Jowar roti", "Millet khichdi");
+    drinks.push("Ambali", "Buttermilk", "Lemon water");
+  }
+
+  // KERALA
+  if(location.includes("kerala") || location.includes("kochi")){
+    foods.push("Kanji", "Appam", "Banana dishes");
+    drinks.push("Tender coconut water", "Sambaram");
+  }
+
+  // TAMIL NADU
+  if(location.includes("tamil") || location.includes("chennai")){
+    foods.push("Idli", "Curd rice", "Sundal");
+    drinks.push("Neer mor", "Panakam");
+  }
+
+  // KARNATAKA
+  if(location.includes("karnataka") || location.includes("bangalore")){
+    foods.push("Ragi mudde", "Akki rotti");
+    drinks.push("Majjige", "Coconut water");
+  }
+
+  // PUNJAB
+  if(location.includes("punjab")){
+    foods.push("Makki roti", "Dal", "Paneer dishes");
+    drinks.push("Lassi", "Badam milk");
+  }
+
+  // SUMMER
+  if(season==="Summer" || temp >= 32){
+    foods.push("Watermelon", "Cucumber", "Curd rice", "Light homemade meals");
+    drinks.push("Coconut water", "Buttermilk", "Lemon juice");
+    tips.push("Drink more water", "Avoid oily foods", "Prefer cooling foods");
+  }
+
+  // MONSOON
+  if(season==="Monsoon" || hum >= 70){
+    foods.push("Millets", "Pepper rasam", "Warm soups");
+    drinks.push("Ginger tea", "Tulsi tea");
+    tips.push("Support digestion", "Avoid cold outside foods");
+  }
+
+  // WINTER
+  if(season==="Winter" || temp <= 22){
+    foods.push("Dry fruits", "Sesame foods", "Protein-rich meals");
+    drinks.push("Warm milk", "Herbal drinks");
+    tips.push("Maintain immunity", "Eat warm foods");
+  }
+
+  // CHILDREN
+  if(age <= 12){
+    foods.push("Milk", "Banana", "Soft homemade foods");
+    drinks.push("Fresh fruit juice");
+    tips.push("Growth-support nutrition");
+  }
+
+  // TEENAGERS
+  if(age >= 13 && age <= 19){
+    foods.push("Eggs", "Protein foods", "Energy foods");
+    drinks.push("Dry fruit milkshake");
+    tips.push("Support growth and energy");
+  }
+
+  // ADULTS
+  if(age >= 20 && age <= 40){
+    foods.push("Balanced meals", "Millets", "Protein foods");
+    tips.push("Maintain hydration and fitness");
+  }
+
+  // ELDERLY
+  if(age > 40){
+    foods.push("Easy digestion foods", "Fiber foods");
+    drinks.push("Herbal drinks");
+    tips.push("Support immunity and digestion");
+  }
+
+  // LOW ACTIVITY
   if(lifestyle==="Low Activity"){
     foods.push("Light meals");
-    tips.push("Prefer easy digestion foods");
-  }
-  if(lifestyle==="High Activity"){
-    foods.push("Protein-rich foods");
-    tips.push("Energy-support foods");
+    tips.push("Avoid heavy oily foods");
   }
 
-  let reply="<b>AI Recommendation for "+location+"</b><br><br>";
-  reply+="<b>Suggested Foods:</b><br>"+foods.map(x=>"<span class='tag'>"+x+"</span>").join("")+"<br><br>";
-  reply+="<b>Traditional Drinks:</b><br>"+drinks.map(x=>"<span class='tag'>"+x+"</span>").join("")+"<br><br>";
-  reply+="<b>Nourishment Practices:</b><br>"+tips.map(x=>"<span class='tag'>"+x+"</span>").join("")+"<br><br>";
-  reply+="<b>Reason:</b> "+reason;
+  // HIGH ACTIVITY
+  if(lifestyle==="High Activity"){
+    foods.push("High protein foods", "Energy foods");
+    drinks.push("Protein shakes");
+    tips.push("Increase hydration");
+  }
+
+  // REMOVE DUPLICATES
+  foods = [...new Set(foods)];
+  drinks = [...new Set(drinks)];
+  tips = [...new Set(tips)];
+
+  let reply = `<b>Smart AI Recommendation for ${location}</b><br><br>
+<b>Recommended Foods:</b><br>
+${foods.map(x=>"<span class='tag'>"+x+"</span>").join("")}
+<br><br>
+<b>Recommended Drinks & Juices:</b><br>
+${drinks.map(x=>"<span class='tag'>"+x+"</span>").join("")}
+<br><br>
+<b>Nourishment Tips:</b><br>
+${tips.map(x=>"<span class='tag'>"+x+"</span>").join("")}`;
 
   setTimeout(()=>addMsg(reply,"bot"),400);
 }
